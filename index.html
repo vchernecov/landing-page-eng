@@ -2,14 +2,34 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>RegistrationForm_v7 by Colorlib</title>
+		<title>ULSCHOOL Quick form</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<!-- MATERIAL DESIGN ICONIC FONT -->
 		<link rel="stylesheet" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
 		
-		<!-- STYLE CSS -->
 		<link rel="stylesheet" href="css/style.css">
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<script>
+			$(document).ready(function(){
+
+				$( "#submitBtn" ).click(function( event ) {
+					var name=document.getElementById('name').value;
+					var email=document.getElementById('email').value;
+					var phone=document.getElementById('phone').value;
+					var dataString = { "name": name, "email":email, "phone": phone }
+
+					$.ajax({
+						type:"post",
+						url:"sender.php",
+						data: dataString,
+						success: function(html) {
+							$('#feedback').html(html);
+						}
+					});
+					event.preventDefault();
+				});
+			});
+		</script>
 	</head>
 
 	<body>
@@ -18,26 +38,28 @@
 			<div class="inner">
 				<form action="">
 					<div class="inner-block">
-						<h3>Contact Us</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
+						<h3>Курсы английского языка
+							<br>для взрослых и детей</h3>
+						<p>Обучим свободному владению английским языком и подготовим к сдаче экзаменов<br> ЕГЭ, ОГЭ, TOEFL,
+							IELTS на максимальный балл.</p>
 					</div>
-					<div class="inner-block">
+					<div class="inner-block-form">
 						<label class="form-group">
-							<input type="text" class="form-control"  required>
-							<span>Your Name</span>
+							<input id="name" type="text" class="form-control"  required>
+							<span>Имя</span>
 							<span class="border"></span>
 						</label>
 						<label class="form-group">
-							<input type="text" class="form-control"  required>
-							<span for="">Your Mail</span>
+							<input id="phone" type="tel" class="form-control"  required>
+							<span for="">Телефон</span>
 							<span class="border"></span>
 						</label>
 						<label class="form-group" >
-							<textarea name="" id="" class="form-control" required></textarea>
-							<span for="">Your Message</span>
+							<textarea name="" id="email" class="form-control" required></textarea>
+							<span for="">E-mail</span>
 							<span class="border"></span>
 						</label>
-						<button>Submit
+						<button id="submitBtn">Отправить
 							<i class="zmdi zmdi-arrow-right"></i>
 						</button>
 					</div>
@@ -45,5 +67,5 @@
 			</div>
 		</div>
 		
-	</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+	</body>
 </html>
